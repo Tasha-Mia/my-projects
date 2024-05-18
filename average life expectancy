@@ -1,0 +1,30 @@
+import requests
+
+def get_russian_female_life_expectancy():
+    url = "https://data.worldbank.org/indicator/SP.DYN.LE00.IN?locations=RU"
+    response = requests.get(url)
+    data = response.json()
+
+    # Extract the female life expectancy data
+    female_life_expectancy = data["data"][0][1]
+
+    return female_life_expectancy
+
+def calculate_average_life_expectancy(years_data, life_expectancy_data):
+    total_years = sum(years_data)
+    total_life_expectancy = sum(life_expectancy_data)
+
+    average_life_expectancy = total_life_expectancy / total_years
+
+    return average_life_expectancy
+
+def main():
+    female_life_expectancy = get_russian_female_life_expectancy()
+    years_data = [2000, 2005, 2010, 2015, 2020]
+    life_expectancy_data = [73.3, 73.8, 74.7, 75.3, 74.8]
+    average_life_expectancy = calculate_average_life_expectancy(years_data, life_expectancy_data)
+
+    print(f"Average life expectancy of women in Russia: {average_life_expectancy:.2f}")
+
+if __name__ == "__main__":
+    main()
